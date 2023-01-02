@@ -569,6 +569,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../commands/" class="md-nav__link">
+        Commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../zCOBOL_User_Guide/" class="md-nav__link">
         zCOBOL User Guide
       </a>
@@ -1206,21 +1220,21 @@ using the following 3 major components:</p>
   level as first positional operand.</p>
 </li>
 <li>
-<p>The macros in COBOL verb macro library z390\zcobol*.mac parse the parameters
+<p>The macros in COBOL verb macro library <code>zcobol/*.mac</code> parse the parameters
   for each verb, access global macro symbol table, and call code generation macros
   to generated executable code. For example the IF macro issues calls to GEN_COMP
   macro to generate executable source code to compare two fields,
   and issues call to GEN_BC to generate executable source code to branch on condition.</p>
 </li>
 <li>There are currently 4 optional zCOBOL executable code generation macro libraries.
-  The z390\zcobol\z390 HLASM code generation library is the primary focus currently.
-  There is a COBOL demo program z390\zcobol\demo\HELLO.CBL which can be
+  The <code>zcobol/z390</code> HLASM code generation library is the primary focus currently.
+  There is a COBOL demo program <code>zcobol/demo/HELLO.CBL</code> which can be
   compiled and executed in all 4 different target language environments using
   the initial zCOBOL release. The following libraries are available:<ul>
-<li>z390\zcobol\z390 - zCOBOL code generation macros for HLASM native z9/10 code</li>
-<li>z390\zcobol\java - zCOBOL code generation macros for J2SE Java</li>
-<li>z390\zcobol\vce - zCOBOL code generation macros for MS Visual Express C++</li>
-<li>z390\zcobol\i586 - zCOBOL code generation macros for HLA and MASM native Intel code</li>
+<li><code>zcobol/z390</code> - zCOBOL code generation macros for HLASM native z9/10 code</li>
+<li><code>zcobol/java</code> - zCOBOL code generation macros for J2SE Java</li>
+<li><code>zcobol/vce</code> - zCOBOL code generation macros for MS Visual Express C++</li>
+<li><code>zcobol/i586</code> - zCOBOL code generation macros for HLA and MASM native Intel code</li>
 </ul>
 </li>
 </ul>
@@ -1242,19 +1256,20 @@ label to generate. All hyphens in names are translated to underscores for
 HLASM compatibility.</p>
 <h2 id="cobol-language-verb-macros">COBOL Language Verb Macros</h2>
 <p>All the macros for the COBOL language verbs and section headings are stored
-in the macro library z390\zcobol. These macros parse the parameters, validate
+in the macro library <code>zcobol/mac</code>. These macros parse the parameters, validate
 them for any syntax errors, and issue calls to generation macros in separate
-directory as described below. For example, the zcobol\IF.MAC macro generates
-multiple calls to the generation macros GEN_COMP, GEN_BC GEN_B, and GEN_LABEL.
-There are no language specific code generation macros in the zCOBOL directory
+directory as described below. For example, the <code>zcobol/mac/IF.MAC</code> macro generates
+multiple calls to the generation macros <code>GEN_COMP</code>, <code>GEN_BC</code>,  <code>GEN_B</code>, and <code>GEN_LABEL</code>.</p>
+<p>There are no language specific code generation macros in the zCOBOL directory
 so it is shared across multiple target language environments. All the macros
 are written in structured form using the z390 ZSTRMAC SPE structured programming
 extensions such as AIF, AELSEIF, AELSE, AEND, AWHILE, etc. As a result there are
-no explicit AGO or AIF labels in these macros.</p>
+no explicit AGO or AIF labels in these macros. 
+See <a href="/user_guide/z390/structured_macro">Structured Macro Entensions documentation</a> for more details.</p>
 <h2 id="compute-statement-example">COMPUTE Statement Example</h2>
-<p>The COBOL compute statement now supported in v1.5.00d is a good example to study
-to understand how the zCOBOL compiler works. The steps followed to compile the
-following MOVE and COMPUTE statements are as follows:</p>
+<p>The COBOL compute statement is a good example to study to understand how the zCOBOL 
+compiler works. The steps followed to compile the following MOVE and COMPUTE 
+statements are as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="c">77 FLT</span><span class="o">-</span><span class="nv">SRT</span><span class="w"> </span><span class="kp">USAGE</span><span class="w"> </span><span class="kp">FLOAT-SHORT</span><span class="w"> </span><span class="kp">OCCURS</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span>
 <span class="c">MOVE 1</span><span class="p">.</span><span class="mi">1 </span><span class="kp">TO</span><span class="w"> </span><span class="nv">FLT-SRT</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span>
 <span class="c">COMPUT</span><span class="nv">E</span><span class="w"> </span><span class="nv">FLT-SRT</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">FLT-SRT</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span>
@@ -1286,32 +1301,32 @@ using two stacks. One stack has the operators in expression and the other has
 the field parm index pointers. Following the rules of precedence, the operators
 and associated parameter pointers are removed from the stacks and stored
 sequentially in an operation table containing the operators, 2 operands,
-and the target field for each operation. <br />
-Temporary storage fields are represented using negative indexes instead of
+and the target field for each operation.   </p>
+<p>Temporary storage fields are represented using negative indexes instead of
 position and a table of temporary fields created along with their type
 is maintained. A queue of free temporary fields is maintained and once
 a temporary field has been used in an operation, that temporary field is
-on the free queue for reuse rather than allocating a new temporary storage field. <br />
-Once the expression has been parsed and all the operation table entries
+on the free queue for reuse rather than allocating a new temporary storage field.</p>
+<p>Once the expression has been parsed and all the operation table entries
 have been generated, the last target field is replaced with the result field
 passed to ZC_CALC and then the operation table is scanned and the generation
-macros for each operation are called to generate code to perform the operation. <br />
-Just prior to generating code for an operation, the two input parameter types
+macros for each operation are called to generate code to perform the operation.</p>
+<p>Just prior to generating code for an operation, the two input parameter types
 are used to determine the required type of result to minimize any loss
 of precision during the calculations. A call to GEN_MOVE is made to move
 the first operand field to the target field prior to performing
 add, subtract, etc. on the target field for operation. If the first operand is
 the same as the target field, the move can be omitted but that is not always
 possible to determine in the case of subscripting and indexing where
-different variables may just happen to have the same value. <br />
-The called generation macros GEN_ADD, GEN_SUB, GEN_MPY, and GEN_DIV check
+different variables may just happen to have the same value.</p>
+<p>The called generation macros GEN_ADD, GEN_SUB, GEN_MPY, and GEN_DIV check
 the field types and perform the necessary conversion when types do not match.</p>
-<p>See demo added in zcobol\demo\callcomp directory which contains CALLCALC.MLC
+<p>See demo added in <code>zcobol/demo/callcomp</code> directory which contains CALLCALC.MLC
 main assembler program which calls subroutine COMPSUM.CBL which uses
 COMPUTE statement to calculate sum of 15 different numeric data field types
 and returns sum as packed decimal for editing and display by calling program.</p>
 <p>There is a paper about this demo here:
-http://www.z390.org/zcobol\demo\callcomp\zcobol_COMPUTE.pdf</p>
+<a href="http://www.z390.org/zcobol/demo/callcomp/zcobol_COMPUTE.pdf">zcobol_COMPUTE.pdf -- Dead link</a></p>
 <h2 id="zcobol-target-source-language-generation-macros">zCOBOL Target Source Language Generation Macros</h2>
 <p>All the target source language generation macros called by the COBOL verb macros
 in z390/zcobol are stored in the following directories by target language:</p>
@@ -1324,28 +1339,28 @@ in z390/zcobol are stored in the following directories by target language:</p>
 </thead>
 <tbody>
 <tr>
-<td>z390\zcobol\z390</td>
+<td>zcobol/z390</td>
 <td>Generate HLASM compatible mainframe assembler source program</td>
 </tr>
 <tr>
-<td>z390\zcobol\java</td>
+<td>zcobol/java</td>
 <td>Generate J2SE java compatible source program</td>
 </tr>
 <tr>
-<td>z390\zcobol\vce</td>
+<td>zcobol/vce</td>
 <td>Generate MS Visual Express C compatible source program</td>
 </tr>
 <tr>
-<td>z390\zcobol\i586</td>
+<td>zcobol/i586</td>
 <td>Generate HLA/MASM Intel assembler compatible source program</td>
 </tr>
 </tbody>
 </table>
 <p>Current only the z390 HLASM compatible source generation macros are being
 fully developed along with the required runtime support functions stored
-in the zcobol\z390\ZC390LIB.390 dynamically loaded runtime module.
-However the zCOBOL demos include a hello world COBOL program which can be compiled
-and executed in each of the target environments form the same zcobol\demo\HELLO.CBL
+in the <code>zcobol/lib/ZC390LIB.390</code> dynamically loaded runtime module.</p>
+<p>zCOBOL demos include a hello world COBOL program which can be compiled
+and executed in each of the target environments form the same <code>zcobol/demo/HELLO.CBL</code>
 source program.   </p>
 <p>The following commands generate the corresponding source language equivalent
 and executable:</p>
@@ -1360,27 +1375,27 @@ and executable:</p>
 </thead>
 <tbody>
 <tr>
-<td>ZC390CLG zcobol\demo\HELLO</td>
-<td>zcobol\demo\HELLO.MLC/BAL</td>
-<td>zcobol\demo\HELLO.390</td>
+<td>cblclg zcobol/demo/HELLO</td>
+<td>zcobol/demo/HELLO.MLC/BAL</td>
+<td>zcobol/demo/HELLO.390</td>
 <td>requires z390 and J2SE on Windows/Linux</td>
 </tr>
 <tr>
-<td>ZCJAVCLG zcobol\demo\HELLO</td>
-<td>zcobol\demo\HELLO.java</td>
-<td>zcobol\demo\HELLO.class</td>
+<td>ZCJAVCLG zcobol/demo/HELLO</td>
+<td>zcobol/demo/HELLO.java</td>
+<td>zcobol/demo/HELLO.class</td>
 <td>requires J2SE on Windows/Linux</td>
 </tr>
 <tr>
-<td>ZCVCECLG zcobol\demo\HELLO</td>
-<td>zcobol\demo\HELLO.ccp</td>
-<td>zcobol\demo\HELLO.exe</td>
+<td>ZCVCECLG zcobol/demo/HELLO</td>
+<td>zcobol/demo/HELLO.ccp</td>
+<td>zcobol/demo/HELLO.exe</td>
 <td>requires MS VCE runtime on Windows</td>
 </tr>
 <tr>
-<td>ZC586CLG zcobol\demo\HELLO</td>
-<td>zcobol\demo\HELLO.HLA/ASM</td>
-<td>zcobol\demo\HELLO.exe</td>
+<td>ZC586CLG zcobol/demo/HELLO</td>
+<td>zcobol/demo/HELLO.HLA/ASM</td>
+<td>zcobol/demo/HELLO.exe</td>
 <td>requires HLA, MASM, and MS VCE runtime on Windows</td>
 </tr>
 </tbody>
@@ -1391,17 +1406,19 @@ language environment, join the zcobol development email discussion group
 and make your interests known. Melvyn Maltz is currently developing additional
 EXEC CICS support for zCOBOL programs.</p>
 <h2 id="zc390lib-runtime-library">ZC390LIB Runtime Library</h2>
-<p>The z390\zcobol\z390 code generation macro directory also contains all the
+<p>The <code>zcobol\lib</code> code generation macro directory also contains all the
 source code and the ZC390CVT.CPY copybook required to build
-the z390\linklib\ZC390LIB.390 runtime load module which is dynamically loaded
-by all generated z390 zCOBOL programs. This module contains the following
-components:
-- The ZC390CVT.CPY copybook is used in every zCOBOL generated program
-to define the DSECT addressed by register 9.
-- The same copybook is also used in ZC390LIB.MLC to generate
-the CVT at the beginning of the ZC390LIB.390 runtime load module
-with addresses of all the entries followed by work areas used by
-the code generation macros.</p>
+the <code>linklib\ZC390LIB.390</code> runtime load module which is dynamically loaded
+by all generated z390 zCOBOL programs. </p>
+<p>This module contains the following components:</p>
+<ul>
+<li>The ZC390CVT.CPY copybook is used in every zCOBOL generated program
+  to define the DSECT addressed by register 9.</li>
+<li>The same copybook is also used in ZC390LIB.MLC to generate
+  the CVT at the beginning of the ZC390LIB.390 runtime load module
+  with addresses of all the entries followed by work areas used by
+  the code generation macros.</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -1437,19 +1454,19 @@ the code generation macros.</p>
 </tbody>
 </table>
 <h2 id="base-free-code-generation">Base Free Code Generation</h2>
-<p>The zCOBOL code generation macros in zcobol\z390 generate base free code
+<p>The zCOBOL code generation macros in <code>zcobol/lib</code> generate base free code
 for the procedure division using relative instructions for both
-branch addressing and for literal addressing as required.
-The only address constants generated in zCOBOL programs are for statically
+branch addressing and for literal addressing as required.</p>
+<p>The only address constants generated in zCOBOL programs are for statically
 linked CALL's to other zCOBOL or assembler programs. The only limit on
 the combined size of working storage and the procedure division is 16MB.<br />
 In order to use relative addressing for literals, all odd length literals
-are padded to even lengths. <br />
-The LARL instruction is used to set address of data field or literal field
+are padded to even lengths.   </p>
+<p>The LARL instruction is used to set address of data field or literal field
 as required for use in following RX type instructions. To address working storage
 and linkage section data fields, conventional base registers are dynamically
-allocated as required for use in RX type instructions. <br />
-Since R13 always points to the beginning of working-storage, no dynamic
+allocated as required for use in RX type instructions.   </p>
+<p>Since R13 always points to the beginning of working-storage, no dynamic
 base registers are required for access to data items in the first 4K of
 working storage.</p>
 <h2 id="zcobol-exec-cics-support">zCOBOL EXEC CICS Support</h2>
@@ -1702,7 +1719,7 @@ or in OPT options file.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top"], "search": "../../../assets/javascripts/workers/search.fcfe8b6d.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": "v1.8.1-11-gcd1b8f6"}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top"], "search": "../../../assets/javascripts/workers/search.fcfe8b6d.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": "v1.8.1-12-g5b39e7b"}</script>
     
     
       <script src="../../../assets/javascripts/bundle.b1047164.min.js"></script>
