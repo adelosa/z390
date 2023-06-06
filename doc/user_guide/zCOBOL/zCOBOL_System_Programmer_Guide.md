@@ -1,4 +1,4 @@
-# zCOBOL System Programmer's Guide
+# zCOBOL System Programmer Guide
 
 !!! Warning
     There are still a number of missing functions in zCOBOL, and until such time

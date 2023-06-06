@@ -33,6 +33,12 @@ on the zCOBOL project as it evolves.
 
 ## NIST ANSI 1985 Test Suite Results
 
+Much work has been done and the zCOBOL compiler does compile and execute programs
+including a number of EXEC CICS COBOL programs and also a number of demo and
+zCOBOL regression test COBOL programs.
+
+However, there is still much work to do to complete the NIST COBOL 1985 test suite.
+
 v1.5.00a came from RPI 1001 for conditional 88 support, RPI 1002 SET and index
 support, and RPI 1012 miscellaneous syntax error corrections. Once some of the
 remaining critical support items such as COMPUTE are completed, these numbers
@@ -48,4 +54,32 @@ download for the NIST test suite for zCOBOL. These statistics were extracted fro
 | RC=0 No errors                    | 11      | 12       | most programs are still missing one or more items    |
 | RC=8 MNOTE support warning        | 19      | 151      | Warning for unsupported items pending implementation |
 | RC=16 At least 1 error message    | 249     | 160      | Error messages from mz390 or az390 macro assembler   |
+
+### Pending Priority List for zcobol Development
+
+The following priorities for the open source zCOBOL portable COBOL compiler
+are based on user feedback. Special thanks to Bill Klein for starting the process.
+
+- Nucleus
+    + Data Division (fix a few remaining unsupported clauses such as JUSTIFIED RIGHT)
+    + IF (add support for expressions using ZC_CALC shared with COMPUTE)
+    + MOVE CORRESPONDING
+    + Functions
+        - Date functions
+        - Ordering  (MIN, MAX, ORD-MIN, and ORD-MAX)
+        - Misc ORD, CHAR, UPPER-/LOWER-CASE
+        - Math functions (SQRT, SIN, COS, etc.)
+- Debugging
+    + EXHIBIT (READY/RESET TRACE already done)
+- File Access
+    + Sequential (ESDS, QSAM,LINE SEQUENTIAL already done)
+    + Random (RRDS, BDAM)
+    + Indexed (KSDS)
+- Source text management
+    + REPLACE (COPY REPLACING already supported)
+- SORT and MERGE
+- Last priority after everything else is done
+    + Segmentation
+    + Communications
+
 

@@ -1,37 +1,18 @@
 # zCOBOL NIST COBOL 1985 Test Results
 
-**v1.5.06**
+## Overview
 
-*Automated Software Tools Corporation*
-
-[Overview]
-
-[Summary Statistics]
-
-[Translation to zcobol macro calls]
-
-[Generated HLASM Assembler Instructions]
-
-[Pending Priority List to complete test suite for HLASM target language]
-
-[Trademarks](#Trademarks)
-
-[Credits](#Credits)
-
-== *(C) Copyright 2009 Automated Software Tools Corporation.
-This is part of z390 distributed under open source GPL License* ==
-
-## Overview (#Overview)
+Testing based on v1.5.06 of z390.
 
 The [NIST COBOL Tests](https://www.itl.nist.gov/div897/ctg/cobol_form.htm)
 have been downloaded and are being used as an initial test
 of zCOBOL compliance with the COBOL 1985 Standard.  There are 459 COBOL test
 programs of which 409 are currently being tested with zcoboL.
-See the [summary statistics](???)
+See the [summary statistics](#summary-statistics)
 showing translation, assembly, and execution by 2 character program name prefix.
 Currently they all translate without errors.
 
-See the [translation statistics](???)
+See the [translation statistics](#translation-to-zcobol-macro-calls)
 showing the frequency of each generated zCOBOL macro call listed in descending
 order by frequency followed by alphabetical list. The zCOBOL translator program
 zc390.java/class in z390.jar consists of 1625 lines of java code and uses
@@ -50,7 +31,7 @@ The translator also maps dashes in names to underscores,
 double quotes to single quotes, START to ZCSTART, and END DECLARATIVES to
 END_DECLARATIVES to avoid assembler conflicts.
 
-See the [Generated HLASM Assembler Instructions]()
+See the [Generated HLASM Assembler Instructions](#generated-hlasm-assembler-instructions)
 showing the frequency of each generated HLASM assembler instruction listed
 in descending order by frequency followed by alphabetical list.
 The zCOBOL directory currently contains 119 macros corresponding to COBOL verbs
@@ -65,15 +46,6 @@ over 80% consist of the following:
 DS, LARL, EQU, L, MVC, BASR, DC, MVI, LAY, USING, ORG, DROP, and BRC.
 - The LARL is used to address single literal pool without requiring base register.
 
-Much work has been done and the zCOBOL compiler does compile and execute programs
-including a number of EXEC CICS COBOL programs and also a number of demo and
-zCOBOL regression test COBOL programs.
-However, there is still much work to do to complete the NIST COBOL 1985 test suite.
-See the [pending priority list](???) and join the
-[zCOBOL user email group](???)
-to participate in future direction of zCOBOL and the setting of priorities
-going forward.
-
 The HLASM generation macros could now be copied to other target language
 directories for Java, C, and MASM and then modified to generate the appropriate
 equivalent source code.
@@ -84,20 +56,20 @@ There are existing example generation macros already included which support
 compiling the zcobol\demo\HELLO.CBL program into executable J2SE Java,
 Microsoft Visual C, and Intel MASM assembler.
 
-## Summary Statistics (#Summary)
+## Summary Statistics
 
 The following summary report shows the current progress toward translating,
 assembling, and executing 409 NIST test programs for COBOL 1985 using zCOBOL
 and z390 version v1.5.01.
 This report was generated automatically using the following set of
 ZPAR utility commands:
-    ``` dos
-    call zpar\ZPARGEN  zpar\ZCCLG \work\nist\src\*.CBL
-    call zpar\ZPARSUM2            \work\nist\src\*.ERR
-    ```
 
-|      |     |XLAT |XLAT |ASM   |ASM  |ASM  |EXEC |EXEC |
-|ID    |TOT  |RC=0 |RC>0 |RC<=4 |RC=8 |RC>8 |RC=0 |RC>0 |
+``` dos
+call zpar\ZPARGEN  zpar\ZCCLG \work\nist\src\*.CBL
+call zpar\ZPARSUM2            \work\nist\src\*.ERR
+```
+
+|ID    |TOT  |XLAT RC=0 |XLAT RC>0|ASM RC<=4|ASM RC=8|ASM RC>8 |EXEC RC=0|EXEC RC>0|
 |------|-----|-----|-----|------|-----|-----|-----|-----|
 |CM    |  7  |   7 |   0 |    0 |   7 |   0 |   0 |   0 |
 |DB    | 10  |  10 |   0 |    0 |  10 |   0 |   0 |   0 |
@@ -132,13 +104,14 @@ Notes:
 7. The next step will be to add missing functions identified by MNOTEs in order
    to assemble and execute successfully.
 
-## Translation to zcobol Macro Calls (#Translation)
+## Translation to zCOBOL Macro Calls
 
 All of the generated MLC files for the 409 NIST COBOL programs were read
 to produce this report using the command:
-    ``` dos
-    zpar\ZPARMLC \work\NIST\SRC\*.MLC
-    ```
+
+``` dos
+zpar\ZPARMLC \work\NIST\SRC\*.MLC
+```
 
 | Statistics                               |
 |------------------------------------------|
@@ -362,14 +335,15 @@ Notes:
 7. ZCSD counts SD sort definition sections (SD is an assembler instuction)
 8. ZCSTART counts START macro (START is an assembler control instruction)
 
-# Generated HLASM Assembler Instructions (#generated)
+# Generated HLASM Assembler Instructions
 
 The following report showing all the generated HLASM opcodes for all 409 of the
 NIST COBOL programs assembled using option BAL was generated using the following
 command:
-    ``` dos
-    zpar\ZPARMLC \work\NIST\src\*.BAL
-    ```
+
+``` dos
+zpar\ZPARMLC \work\NIST\src\*.BAL
+```
 
 | Statistics                               |
 |------------------------------------------|
@@ -673,45 +647,3 @@ Notes:
 2. @MAC_COMMENT@ count macro comments.
 3. @BLANK@ count blank lines.
 4. @ERROR@ count any lines without valid assembler opcode.
-
-## Pending Priority List for zcobol Development (#pending)
-
-The following priorities for the open source zCOBOL portable COBOL compiler
-are based on user feedback. Special thanks to Bill Klein for starting the process.
-
-- Nucleus
-    + Data Division (fix a few remaining unsupported clauses such as JUSTIFIED RIGHT)
-    + IF (add support for expressions using ZC_CALC shared with COMPUTE)
-    + MOVE CORRESPONDING
-    + Functions
-        - Date functions
-        - Ordering  (MIN, MAX, ORD-MIN, and ORD-MAX)
-        - Misc ORD, CHAR, UPPER-/LOWER-CASE
-        - Math functions (SQRT, SIN, COS, etc.)
-- Debugging
-    + EXHIBIT (READY/RESET TRACE already done)
-- File Access
-    + Sequential (ESDS, QSAM,LINE SEQUENTIAL already done)
-    + Random (RRDS, BDAM)
-    + Indexed (KSDS)
-- Source text management
-    + REPLACE (COPY REPLACING already supported)
-- SORT and MERGE
-- Last priority after everything else is done
-    + Segmentation
-    + Communications
-
-To submit your priorities, join the [zCOBOL user email group](???)
-and post your requests:
-
-
-## Trademarks {#Trademarks}
-
-IBM, CICS, HLASM, MVS, OS/390, VSAM, z9, z10, and z/OS
-are registered trademarks  of International Business Machines Corporation
- 
-Dell, Windows, Java, and MASM are registered trademarks of their respective owners.
-
-## Credits {#Credits}
-
-Author : Don Higgins
