@@ -96,6 +96,7 @@ You will need Python version 3.4 or above installed.
 === "MacOS/Unix"
 
     ``` sh
+    brew install pango
     python -m venv docenv
     source docenv/bin/activate
     pip install -r doc/requirements.txt
