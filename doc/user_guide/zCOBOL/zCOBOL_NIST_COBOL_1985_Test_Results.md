@@ -1,8 +1,8 @@
 # zCOBOL NIST COBOL 1985 Test Results
 
-## Overview
+The following information is based on z390 v1.5.06
 
-Testing based on v1.5.06 of z390.
+## Overview
 
 The [NIST COBOL Tests](https://www.itl.nist.gov/div897/ctg/cobol_form.htm)
 have been downloaded and are being used as an initial test
@@ -22,11 +22,13 @@ HLASM compatible macro assembler calls.
 It's interesting to note that out of about 440,000 lines of COBOL code,
 the following make up over 80% of all verbs:
 PERIOD, MOVE, WS, PERFORM, LABEL, GO, IF, ADD, ELSE, and EXIT.
-- PERIOD is the name of the macro generated to process end of sentence closing
+
+* PERIOD is the name of the macro generated to process end of sentence closing
   structures etc.
-- WS is the name of the generated macro to handle all data definitions in
+* WS is the name of the generated macro to handle all data definitions in
   working-storage and linkage section with unique qualified names.
-- LABEL is the generated macro to handle creating unique qualified paragraph names.
+* LABEL is the generated macro to handle creating unique qualified paragraph names.
+
 The translator also maps dashes in names to underscores,
 double quotes to single quotes, START to ZCSTART, and END DECLARATIVES to
 END_DECLARATIVES to avoid assembler conflicts.
@@ -34,6 +36,7 @@ END_DECLARATIVES to avoid assembler conflicts.
 See the [Generated HLASM Assembler Instructions](#generated-hlasm-assembler-instructions)
 showing the frequency of each generated HLASM assembler instruction listed
 in descending order by frequency followed by alphabetical list.
+
 The zCOBOL directory currently contains 119 macros corresponding to COBOL verbs
 and reserved section names plus 9 copybooks totaling 7470 lines of conditional
 structured macro code.
@@ -41,6 +44,7 @@ structured macro code.
 The zcobol directory macros in turn call code generation macros for the target
 language environment. The zcobol\z390 directory contains 44 code generation macros
 and 4 copybooks totaling 13,250 lines of conditional structured macro code.
+
 Of the million plus lines of generated HLASM assembler code generated,
 over 80% consist of the following:
 DS, LARL, EQU, L, MVC, BASR, DC, MVI, LAY, USING, ORG, DROP, and BRC.
@@ -49,9 +53,11 @@ DS, LARL, EQU, L, MVC, BASR, DC, MVI, LAY, USING, ORG, DROP, and BRC.
 The HLASM generation macros could now be copied to other target language
 directories for Java, C, and MASM and then modified to generate the appropriate
 equivalent source code.
+
 However, the current focus will remain on HLASM and since the zCOBOL generic
 language macros which call the code generation macros are still subject to change,
 delaying the start of other target language macro libraries is recommended.
+
 There are existing example generation macros already included which support
 compiling the zcobol\demo\HELLO.CBL program into executable J2SE Java,
 Microsoft Visual C, and Intel MASM assembler.
@@ -61,6 +67,7 @@ Microsoft Visual C, and Intel MASM assembler.
 The following summary report shows the current progress toward translating,
 assembling, and executing 409 NIST test programs for COBOL 1985 using zCOBOL
 and z390 version v1.5.01.
+
 This report was generated automatically using the following set of
 ZPAR utility commands:
 

@@ -1,4 +1,4 @@
-# Contributing to z390 Documentation
+# Contributing to Documentation
 
 The following document will provide details on how to contribute to the z390 documentation.
 

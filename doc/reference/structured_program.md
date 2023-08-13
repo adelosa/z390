@@ -4,8 +4,9 @@ Structured Programming Macros (SPM) provide a compatible subset of the macros
 that IBM supplies as part of its licensed HLASM Toolkit product.
 
 These macros are based on the original 1978 public domain structure programming
-macros distributed as SHARE CBT tape #177. They have been enhanced to use 
-[structured macro extensions](../user_guide/z390/structured_macro.md).
+macros distributed as SHARE CBT tape #178. See https://www.cbttape.org/covdowns.htm
+
+They have been enhanced to take advantage of [structured macro extensions](../user_guide/z390/structured_macro.md).
 
 
 ## Macro reference

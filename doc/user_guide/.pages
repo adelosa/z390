@@ -1,4 +1,6 @@
 nav:
+    - faq.md
+    - reference.md
     - z390
     - zCOBOL
     - ...
