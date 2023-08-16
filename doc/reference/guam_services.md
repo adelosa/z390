@@ -1,7 +1,5 @@
 # GUAM services
 
-<http://www.z390.org/z390_GUAM_GUI_Access_Method_Guide.pdf>
-
 The z390 GUAM Graphical User Access Method provides support for any 
 assembler program to interface with a user via a GUI window when the GUAM 
 option is specified as an ez390 execution option. 

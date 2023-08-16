@@ -301,12 +301,6 @@ Refer to README.TXT in SOA folder for more details.
 
 ## References
 
-### Original z390 SOA documents
-
-* <http://www.z390.org/z390_SOA_User_Guide.pdf>
-* <http://www.z390.org/z390_SOA_Support_for_COBOL_and_Assembler.htm>
-* <http://www.z390.org/z390_SOA_Client_Server_Overview.pdf>
-
 ### TCP/IP
 
 * [TCP/IP Transmission Control Protocol RFP](http://www.faqs.org/rfcs/rfc793.html)

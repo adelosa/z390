@@ -99,10 +99,3 @@ The following system macros use the macro extensions:
 * EQUREGS.MAC - generate EQU symbols if not already generated for GPR and FPR registers
 * ZCLOSE.MAC - close files (called from CLOSE and other user macros in concatenated directories)
 * ZOPEN.MAC - open files (called from OPEN and other user macros in concatenated directories)
-
-
-# Additional docs
-
-TODO: https://z390.org/z390_Structured_Programming_Macro_Guide.pdf
-
-
