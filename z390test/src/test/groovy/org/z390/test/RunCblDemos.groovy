@@ -1,10 +1,15 @@
 package org.z390.test
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions
 
 import java.util.regex.Pattern
 
 class RunCblDemos extends z390Test {
+
+    RunCblDemos() {
+        printOutput = true
+    } 
 
     @Test
     void test_COBOL_HELLO() {
@@ -27,8 +32,9 @@ class RunCblDemos extends z390Test {
         assert rc == 0
     }
 
-    @Test
+    @Test()
     void test_COBOL_COPYFILE() {
+        // TODO - Remove filenames from source - use vars
         // load the original source file
         loadFile(basePath('zcobol', 'demo', 'COPYFILE.CBL'), 'source')
         String source = fileData['source'].toString()
@@ -40,11 +46,16 @@ class RunCblDemos extends z390Test {
 
         // Create temp source file containing updated file locations
         String sourceFilename = createTempFile('COPYFILE.CBL', source, false)
+        this.fileData["modified_source"] = source
 
         // Now run the program
         int rc = this.cblclg(sourceFilename)
         this.printOutput()
-        assert rc == 0
+        var thrown = Assertions.assertThrows(AssertionError.class, () -> {
+            assert rc == 0
+        })
+        println(thrown.getMessage())
+
     }
 
     @Test

@@ -1,5 +1,6 @@
 package org.z390.test
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 class RunCmdProc extends z390Test {
@@ -17,11 +18,12 @@ class RunCmdProc extends z390Test {
         if (os.startsWith('Windows')) {
             env.put('COMSPEC', 'Windows')
         }
+        printOutput = true
     }
 
     @Test
     void test_TESTCMD3() {
-
+        // TODO - Remove filenames from source - use envvar
         // regex replacement of batch file locations - use basePath
         String WinBatOld = "C'rt\\\\test\\\\bat\\\\TESTCMD3\\.BAT',X'00'   Windows command"
         println(WinBatOld)
@@ -43,11 +45,15 @@ class RunCmdProc extends z390Test {
         String sourceFilename = createTempFile('TESTCMD3.MLC', source)
         int rc = this.asmlg(sourceFilename, *options)
         this.printOutput()
-        assert rc == 0
+        var thrown = Assertions.assertThrows(AssertionError.class, () -> {
+            assert rc == 0
+        })
+        println(thrown.getMessage())
     }
 
     @Test
     void test_TESTCMD4() {
+        // TODO Remove filename in source - use envvar
         // load the source file
         loadFile(basePath("rt", "test", "TESTCMD4.MLC"), 'source')
         String source = fileData['source'].toString()
@@ -73,17 +79,26 @@ class RunCmdProc extends z390Test {
         // Run with PARM(1)
         int rc = this.asmlg(sourceFilename, *options, 'PARM(1)')
         this.printOutput()
-        assert rc == 0
+        var thrown = Assertions.assertThrows(AssertionError.class, () -> {
+            assert rc == 0
+        })
+        println(thrown.getMessage())
 
         // Run with PARM(2)
         rc = this.asmlg(sourceFilename, *options, 'PARM(2)')
         this.printOutput()
-        assert rc == 0
+        thrown = Assertions.assertThrows(AssertionError.class, () -> {
+            assert rc == 0
+        })
+        println(thrown.getMessage())
 
         // Run with PARM(3)
         rc = this.asmlg(sourceFilename, *options, 'PARM(3)')
         this.printOutput()
-        assert rc == 0
+        thrown = Assertions.assertThrows(AssertionError.class, () -> {
+            assert rc == 0
+        })
+        println(thrown.getMessage())
 
     }
 }
